@@ -1,6 +1,13 @@
-// ================================
+// =====================================================
+// AKTU RESULT / SGPA CALCULATOR
+// Branch-wise Subjects + Labs
+// CSE | IT | ME | CE
+// =====================================================
+
+
+// =====================================================
 // DARK MODE
-// ================================
+// =====================================================
 
 const toggle = document.getElementById("modeToggle");
 
@@ -11,65 +18,91 @@ if (toggle) {
 }
 
 
-// ================================
-// SUBJECT DATA
-// ================================
+// =====================================================
+// SUBJECT HELPER
+// =====================================================
 
-const yearData = {
+const S = (name, credit = 0) => ({
+    name,
+    credit
+});
 
-    1: {
 
-        sem1: [
-            { name: "Physics", credit: 4 },
-            { name: "Engg. Math-1", credit: 4 },
-            { name: "Electrical", credit: 3 },
-            { name: "PPS", credit: 3 },
-            { name: "EVS", credit: 3 },
-            { name: "Physics Lab", credit: 1 },
-            { name: "Electrical Lab", credit: 1 },
-            { name: "Graphics", credit: 2 },
-            { name: "PPS Lab", credit: 1 }
-        ],
+// =====================================================
+// COMMON 1ST YEAR
+// =====================================================
+// First year is kept common for all branches.
+// If your college follows a different scheme,
+// you can edit these subjects easily.
+// =====================================================
 
-        sem2: [
-            { name: "Chemistry", credit: 4 },
-            { name: "Engg. Math-2", credit: 4 },
-            { name: "Mechanical", credit: 3 },
-            { name: "Electronics", credit: 3 },
-            { name: "Soft Skill", credit: 3 },
-            { name: "Chemistry Lab", credit: 1 },
-            { name: "Electronics Lab", credit: 1 },
-            { name: "English Lab", credit: 1 },
-            { name: "Workshop", credit: 2 }
-        ]
+const commonYear1 = {
 
-    },
+    sem1: [
+        S("Engineering Mathematics-I", 4),
+        S("Engineering Physics", 4),
+        S("Programming for Problem Solving", 3),
+        S("Basic Electrical Engineering", 3),
+        S("Environment and Ecology", 3),
+
+        S("Engineering Physics Lab", 1),
+        S("Programming for Problem Solving Lab", 1),
+        S("Basic Electrical Engineering Lab", 1),
+        S("Engineering Graphics", 2)
+    ],
+
+    sem2: [
+        S("Engineering Mathematics-II", 4),
+        S("Engineering Chemistry", 4),
+        S("Fundamentals of Mechanical Engineering", 3),
+        S("Fundamentals of Electronics Engineering", 3),
+        S("Soft Skills", 3),
+
+        S("Engineering Chemistry Lab", 1),
+        S("Fundamentals of Electronics Engineering Lab", 1),
+        S("English Language Lab", 1),
+        S("Workshop Practice", 2)
+    ]
+
+};
+
+
+// =====================================================
+// CSE
+// =====================================================
+
+const CSE = {
+
+    1: commonYear1,
 
     2: {
 
         sem3: [
-            { name: "Digital Electronics", credit: 4 },
-            { name: "Data Structures", credit: 4 },
-            { name: "COA", credit: 4 },
-            { name: "Technical Communication", credit: 3 },
-            { name: "DSTL", credit: 3 },
-            { name: "Python Programming", credit: 2 },
-            { name: "DS Lab", credit: 1 },
-            { name: "COA Lab", credit: 1 },
-            { name: "Web Designing", credit: 1 },
-            { name: "Mini Project", credit: 2 }
+            S("Data Structures", 4),
+            S("Computer Organization and Architecture", 4),
+            S("Discrete Structures and Theory of Logic", 4),
+            S("Technical Communication", 3),
+            S("Mathematics-IV", 4),
+            S("Cyber Security", 3),
+            S("Python Programming", 2),
+
+            S("Data Structures Lab", 1),
+            S("Computer Organization and Architecture Lab", 1),
+            S("Python Programming Lab", 1),
+            S("Mini Project / Internship", 2)
         ],
 
         sem4: [
-            { name: "Maths-4", credit: 4 },
-            { name: "Operating System", credit: 4 },
-            { name: "OOP using Java", credit: 3 },
-            { name: "TAFL", credit: 4 },
-            { name: "Universal Human Values", credit: 3 },
-            { name: "Cyber Security", credit: 2 },
-            { name: "OS Lab", credit: 1 },
-            { name: "OOPS Java Lab", credit: 1 },
-            { name: "Cyber Security Workshop", credit: 1 }
+            S("Operating System", 4),
+            S("Theory of Automata and Formal Languages", 4),
+            S("Object Oriented Programming", 3),
+            S("Universal Human Values and Professional Ethics", 3),
+            S("Technical Communication", 3),
+
+            S("Operating System Lab", 1),
+            S("Object Oriented Programming Lab", 1),
+            S("Web Designing Workshop", 1),
+            S("Mini Project", 2)
         ]
 
     },
@@ -77,28 +110,32 @@ const yearData = {
     3: {
 
         sem5: [
-            { name: "DBMS", credit: 4 },
-            { name: "Web Technology", credit: 4 },
-            { name: "DAA", credit: 4 },
-            { name: "Dept Elective-I", credit: 3 },
-            { name: "Dept Elective-II", credit: 3 },
-            { name: "DBMS Lab", credit: 1 },
-            { name: "Web Tech Lab", credit: 1 },
-            { name: "DAA Lab", credit: 1 },
-            { name: "Mini Project / Internship", credit: 2 },
-            { name: "Constitution of India", credit: 0 }
+            S("Database Management System", 4),
+            S("Design and Analysis of Algorithms", 4),
+            S("Web Technology", 4),
+            S("Computer Graphics", 3),
+            S("Department Elective-I", 3),
+            S("Department Elective-II", 3),
+
+            S("DBMS Lab", 1),
+            S("DAA Lab", 1),
+            S("Web Technology Lab", 1),
+            S("Computer Graphics Lab", 1),
+            S("Mini Project / Internship", 2)
         ],
 
         sem6: [
-            { name: "Software Engineering", credit: 4 },
-            { name: "Software Management", credit: 4 },
-            { name: "Computer Networks", credit: 4 },
-            { name: "Dept Elective-III", credit: 3 },
-            { name: "Open Elective-I", credit: 3 },
-            { name: "SE Lab", credit: 1 },
-            { name: "SM Lab", credit: 1 },
-            { name: "CN Lab", credit: 1 },
-            { name: "EITK", credit: 0 }
+            S("Software Engineering", 4),
+            S("Computer Networks", 4),
+            S("Compiler Design", 4),
+            S("Department Elective-III", 3),
+            S("Open Elective-I", 3),
+            S("Essence of Indian Traditional Knowledge", 0),
+
+            S("Software Engineering Lab", 1),
+            S("Computer Networks Lab", 1),
+            S("Compiler Design Lab", 1),
+            S("Mini Project", 2)
         ]
 
     },
@@ -106,20 +143,23 @@ const yearData = {
     4: {
 
         sem7: [
-            { name: "Artificial Intelligence", credit: 3 },
-            { name: "Dept Elective-IV", credit: 3 },
-            { name: "Open Elective-II", credit: 3 },
-            { name: "AI Lab", credit: 1 },
-            { name: "Mini Project", credit: 2 },
-            { name: "Project-I", credit: 5 },
-            { name: "Startup & Entrepreneurship", credit: 2 }
+            S("Artificial Intelligence", 3),
+            S("Department Elective-IV", 3),
+            S("Open Elective-II", 3),
+
+            S("Artificial Intelligence Lab", 1),
+            S("Project-I", 5),
+            S("Seminar", 1),
+            S("Startup and Entrepreneurship", 2)
         ],
 
         sem8: [
-            { name: "Open Elective-III", credit: 3 },
-            { name: "Open Elective-IV", credit: 3 },
-            { name: "Open Elective-V", credit: 3 },
-            { name: "Project-II", credit: 10 }
+            S("Department Elective-V", 3),
+            S("Open Elective-III", 3),
+            S("Open Elective-IV", 3),
+
+            S("Project-II", 10),
+            S("Internship / Training", 2)
         ]
 
     }
@@ -127,13 +167,394 @@ const yearData = {
 };
 
 
-// ================================
+// =====================================================
+// INFORMATION TECHNOLOGY
+// =====================================================
+
+const IT = {
+
+    1: commonYear1,
+
+    2: {
+
+        sem3: [
+            S("Data Structures", 4),
+            S("Computer Organization and Architecture", 4),
+            S("Discrete Structures and Theory of Logic", 4),
+            S("Technical Communication", 3),
+            S("Mathematics-IV", 4),
+            S("Cyber Security", 3),
+            S("Python Programming", 2),
+
+            S("Data Structures Lab", 1),
+            S("Computer Organization and Architecture Lab", 1),
+            S("Python Programming Lab", 1),
+            S("Web Designing Lab", 1),
+            S("Mini Project / Internship", 2)
+        ],
+
+        sem4: [
+            S("Operating System", 4),
+            S("Theory of Automata and Formal Languages", 4),
+            S("Object Oriented Programming", 3),
+            S("Universal Human Values and Professional Ethics", 3),
+            S("Cyber Security", 3),
+
+            S("Operating System Lab", 1),
+            S("Object Oriented Programming Lab", 1),
+            S("Cyber Security Lab", 1),
+            S("Web Technology Lab", 1),
+            S("Mini Project", 2)
+        ]
+
+    },
+
+    3: {
+
+        sem5: [
+            S("Database Management System", 4),
+            S("Web Technology", 4),
+            S("Design and Analysis of Algorithms", 4),
+            S("Software Engineering", 3),
+            S("Department Elective-I", 3),
+            S("Department Elective-II", 3),
+
+            S("DBMS Lab", 1),
+            S("Web Technology Lab", 1),
+            S("DAA Lab", 1),
+            S("Software Engineering Lab", 1),
+            S("Mini Project / Internship", 2)
+        ],
+
+        sem6: [
+            S("Computer Networks", 4),
+            S("Software Quality Management", 4),
+            S("Compiler Design", 4),
+            S("Department Elective-III", 3),
+            S("Open Elective-I", 3),
+            S("Essence of Indian Traditional Knowledge", 0),
+
+            S("Computer Networks Lab", 1),
+            S("Software Quality Management Lab", 1),
+            S("Compiler Design Lab", 1),
+            S("Mini Project", 2)
+        ]
+
+    },
+
+    4: {
+
+        sem7: [
+            S("Artificial Intelligence", 3),
+            S("Department Elective-IV", 3),
+            S("Open Elective-II", 3),
+
+            S("Artificial Intelligence Lab", 1),
+            S("Project-I", 5),
+            S("Seminar", 1),
+            S("Startup and Entrepreneurship", 2)
+        ],
+
+        sem8: [
+            S("Department Elective-V", 3),
+            S("Open Elective-III", 3),
+            S("Open Elective-IV", 3),
+
+            S("Project-II", 10),
+            S("Internship / Training", 2)
+        ]
+
+    }
+
+};
+
+
+// =====================================================
+// MECHANICAL ENGINEERING
+// =====================================================
+
+const ME = {
+
+    1: commonYear1,
+
+    2: {
+
+        sem3: [
+            S("Engineering Mathematics-IV", 4),
+            S("Thermodynamics", 4),
+            S("Fluid Mechanics and Fluid Machines", 4),
+            S("Materials Engineering", 3),
+            S("Universal Human Values and Professional Ethics", 3),
+            S("Cyber Security", 3),
+
+            S("Fluid Mechanics Lab", 1),
+            S("Material Testing Lab", 1),
+            S("Computer Aided Machine Drawing-I Lab", 1),
+            S("Internship Assessment / Mini Project", 2)
+        ],
+
+        sem4: [
+            S("Applied Thermodynamics", 4),
+            S("Strength of Materials", 4),
+            S("Theory of Machines", 4),
+            S("Manufacturing Processes", 4),
+            S("Engineering Metrology", 3),
+
+            S("Strength of Materials Lab", 1),
+            S("Theory of Machines Lab", 1),
+            S("Manufacturing Processes Lab", 1),
+            S("Computer Aided Machine Drawing-II Lab", 1)
+        ]
+
+    },
+
+    3: {
+
+        sem5: [
+            S("Heat and Mass Transfer", 4),
+            S("Machine Design-I", 4),
+            S("Industrial Engineering", 3),
+            S("Unconventional Manufacturing Processes", 3),
+            S("Department Elective-I", 3),
+            S("Department Elective-II", 3),
+
+            S("Heat Transfer Lab", 1),
+            S("Machine Design Lab", 1),
+            S("Manufacturing Technology Lab", 1),
+            S("Mini Project / Internship", 2)
+        ],
+
+        sem6: [
+            S("Refrigeration and Air Conditioning", 4),
+            S("Internal Combustion Engines", 4),
+            S("Machine Design-II", 4),
+            S("Production and Operations Management", 3),
+            S("Department Elective-III", 3),
+            S("Open Elective-I", 3),
+
+            S("RAC Lab", 1),
+            S("IC Engine Lab", 1),
+            S("Machine Design Lab-II", 1),
+            S("Production Engineering Lab", 1),
+            S("Mini Project", 2)
+        ]
+
+    },
+
+    4: {
+
+        sem7: [
+            S("Department Elective-IV", 3),
+            S("Department Elective-V", 3),
+            S("Open Elective-II", 3),
+
+            S("CAD/CAM Lab", 1),
+            S("Project-I", 5),
+            S("Seminar", 1),
+            S("Industrial Training", 2)
+        ],
+
+        sem8: [
+            S("Department Elective-VI", 3),
+            S("Open Elective-III", 3),
+            S("Open Elective-IV", 3),
+
+            S("Major Project", 10),
+            S("Internship / Training", 2)
+        ]
+
+    }
+
+};
+
+
+// =====================================================
+// CIVIL ENGINEERING
+// =====================================================
+
+const CE = {
+
+    1: commonYear1,
+
+    2: {
+
+        sem3: [
+            S("Engineering Mathematics-IV", 4),
+            S("Strength of Materials", 4),
+            S("Building Materials and Construction", 4),
+            S("Fluid Mechanics", 4),
+            S("Surveying and Geomatics-I", 3),
+            S("Engineering Geology", 3),
+
+            S("Strength of Materials Lab", 1),
+            S("Surveying and Geomatics Lab-I", 1),
+            S("Fluid Mechanics Lab", 1),
+            S("Building Materials Lab", 1),
+            S("Computer Aided Drawing Lab", 1)
+        ],
+
+        sem4: [
+            S("Structural Analysis-I", 4),
+            S("Concrete Technology", 4),
+            S("Geotechnical Engineering-I", 4),
+            S("Surveying and Geomatics-II", 3),
+            S("Transportation Engineering-I", 3),
+            S("Universal Human Values and Professional Ethics", 3),
+
+            S("Concrete Technology Lab", 1),
+            S("Surveying and Geomatics Lab-II", 1),
+            S("Geotechnical Engineering Lab-I", 1),
+            S("Computer Aided Civil Engineering Drawing Lab", 1)
+        ]
+
+    },
+
+    3: {
+
+        sem5: [
+            S("Geotechnical Engineering-II", 4),
+            S("Structural Analysis-II", 4),
+            S("Quantity Estimation and Construction Management", 4),
+            S("Department Elective-I", 3),
+            S("Department Elective-II", 3),
+
+            S("Geotechnical Engineering Lab-II", 1),
+            S("Structural Analysis Lab", 1),
+            S("Quantity Estimation Lab", 1),
+            S("Mini Project / Internship", 2)
+        ],
+
+        sem6: [
+            S("Design of Concrete Structures", 4),
+            S("Transportation Engineering-II", 4),
+            S("Environmental Engineering", 4),
+            S("Department Elective-III", 3),
+            S("Open Elective-I", 3),
+
+            S("Structural Detailing Lab", 1),
+            S("Transportation Engineering Lab", 1),
+            S("Environmental Engineering Lab", 1),
+            S("Mini Project", 2)
+        ]
+
+    },
+
+    4: {
+
+        sem7: [
+            S("Design of Steel Structures", 4),
+            S("Department Elective-IV", 3),
+            S("Department Elective-V", 3),
+            S("Open Elective-II", 3),
+
+            S("Steel Structure Design Lab", 1),
+            S("Project-I", 5),
+            S("Seminar", 1),
+            S("Industrial Training", 2)
+        ],
+
+        sem8: [
+            S("Department Elective-VI", 3),
+            S("Open Elective-III", 3),
+            S("Open Elective-IV", 3),
+
+            S("Major Project", 10),
+            S("Internship / Training", 2)
+        ]
+
+    }
+
+};
+
+
+// =====================================================
+// ALL BRANCHES
+// =====================================================
+
+const branchData = {
+
+    CSE: CSE,
+
+    IT: IT,
+
+    ME: ME,
+
+    CE: CE
+
+};
+
+
+// =====================================================
+// BRANCH SELECTOR
+// =====================================================
+
+let branchSelect = document.getElementById("branch");
+
+
+// If branch dropdown does not exist in HTML,
+// create it automatically.
+
+if (!branchSelect) {
+
+    branchSelect = document.createElement("select");
+
+    branchSelect.id = "branch";
+
+    const branches = [
+        ["CSE", "Computer Science & Engineering"],
+        ["IT", "Information Technology"],
+        ["ME", "Mechanical Engineering"],
+        ["CE", "Civil Engineering"]
+    ];
+
+    branches.forEach(([value, text]) => {
+
+        const option = document.createElement("option");
+
+        option.value = value;
+        option.textContent = text;
+
+        branchSelect.appendChild(option);
+
+    });
+
+    const yearElement = document.getElementById("year");
+
+    if (yearElement && yearElement.parentNode) {
+
+        yearElement.parentNode.insertBefore(
+            branchSelect,
+            yearElement
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// GET SELECTED BRANCH
+// =====================================================
+
+function getSelectedBranch() {
+
+    return branchSelect.value || "CSE";
+
+}
+
+
+// =====================================================
 // UPDATE SEMESTER
-// ================================
+// =====================================================
 
 function updateSemester(container, subjects) {
 
-    const subjectsDiv = container.querySelector(".onesubjects");
+    if (!container) return;
+
+    const subjectsDiv =
+        container.querySelector(".onesubjects");
+
+    if (!subjectsDiv) return;
 
     subjectsDiv.innerHTML = "";
 
@@ -142,88 +563,210 @@ function updateSemester(container, subjects) {
     subjects.forEach(sub => {
 
         const row = document.createElement("div");
+
         row.className = "sone";
 
+
+        // SUBJECT NAME
+
         const title = document.createElement("h2");
-        title.textContent = `${sub.name}(${sub.credit})`;
+
+        title.textContent =
+            `${sub.name} (${sub.credit})`;
+
+
+        // INTERNAL MARKS
+
+        const internal =
+            document.createElement("input");
+
+        internal.type = "number";
+        internal.min = "0";
+        internal.max = "30";
+        internal.placeholder = "Internal";
+
+
+        // EXTERNAL MARKS
+
+        const external =
+            document.createElement("input");
+
+        external.type = "number";
+        external.min = "0";
+        external.max = "70";
+        external.placeholder = "External";
+
 
         totalCredits += sub.credit;
 
-        const internal = document.createElement("input");
-        internal.type = "number";
-        internal.min = 0;
-        internal.max = 30;
-        internal.placeholder = "00";
 
-        const external = document.createElement("input");
-        external.type = "number";
-        external.min = 0;
-        external.max = 70;
-        external.placeholder = "00";
-
-        row.append(title);
-        row.append(internal);
-        row.append(external);
+        row.appendChild(title);
+        row.appendChild(internal);
+        row.appendChild(external);
 
         subjectsDiv.appendChild(row);
 
     });
 
-    const creditBox = container.querySelectorAll(".credit h2");
 
-    creditBox[0].textContent = `Total Credit: ${totalCredits}`;
-    creditBox[1].textContent = "Marks: ";
-    creditBox[2].textContent = "Percentage: ";
+    const creditBox =
+        container.querySelectorAll(".credit h2");
 
-    container.querySelector(".calculate h2").textContent = "SGPA: 0";
+
+    if (creditBox.length >= 3) {
+
+        creditBox[0].textContent =
+            `Total Credit: ${totalCredits}`;
+
+        creditBox[1].textContent =
+            "Marks: ";
+
+        creditBox[2].textContent =
+            "Percentage: ";
+
+    }
+
+
+    const calculate =
+        container.querySelector(".calculate h2");
+
+    if (calculate) {
+
+        calculate.textContent =
+            "SGPA: 0";
+
+    }
 
 }
 
 
-
-// ================================
-// SWITCH YEAR
-// ================================
+// =====================================================
+// SWITCH YEAR + BRANCH
+// =====================================================
 
 function switchYear() {
 
-    const year = Number(document.getElementById("year").value);
+    const yearElement =
+        document.getElementById("year");
 
-    const data = yearData[year];
+    if (!yearElement) return;
 
-    const semesterCards = document.querySelectorAll(".left");
+
+    const year =
+        Number(yearElement.value);
+
+
+    const branch =
+        getSelectedBranch();
+
+
+    const selectedBranch =
+        branchData[branch];
+
+
+    if (!selectedBranch) return;
+
+
+    const data =
+        selectedBranch[year];
+
+
+    if (!data) return;
+
+
+    const semesterCards =
+        document.querySelectorAll(".left");
+
+
+    if (semesterCards.length < 2) return;
+
+
+    const semesters =
+        Object.keys(data);
+
 
     updateSemester(
         semesterCards[0],
-        data.sem1 || data.sem3 || data.sem5 || data.sem7
+        data[semesters[0]]
     );
+
 
     updateSemester(
         semesterCards[1],
-        data.sem2 || data.sem4 || data.sem6 || data.sem8
+        data[semesters[1]]
     );
 
-    const circles = document.querySelectorAll(".circle");
 
-    circles[0].textContent =
-        Object.keys(data)[0].replace("sem", "");
+    const circles =
+        document.querySelectorAll(".circle");
 
-    circles[1].textContent =
-        Object.keys(data)[1].replace("sem", "");
+
+    if (circles.length >= 2) {
+
+        circles[0].textContent =
+            semesters[0].replace("sem", "");
+
+        circles[1].textContent =
+            semesters[1].replace("sem", "");
+
+    }
+
+
+    // Reset overall total
+    const totalElement =
+        document.querySelector("#Total h2");
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            "Total:";
+
+    }
 
 }
 
-document
-.getElementById("year")
-.addEventListener("change", switchYear);
+
+// =====================================================
+// YEAR CHANGE
+// =====================================================
+
+const yearElement =
+    document.getElementById("year");
+
+if (yearElement) {
+
+    yearElement.addEventListener(
+        "change",
+        switchYear
+    );
+
+}
+
+
+// =====================================================
+// BRANCH CHANGE
+// =====================================================
+
+if (branchSelect) {
+
+    branchSelect.addEventListener(
+        "change",
+        switchYear
+    );
+
+}
+
+
+// =====================================================
+// INITIAL LOAD
+// =====================================================
 
 switchYear();
 
 
-
-// ================================
+// =====================================================
 // CALCULATE BUTTON
-// ================================
+// =====================================================
 
 document
 .querySelectorAll(".calCGPA")
@@ -231,8 +774,16 @@ document
 
     button.addEventListener("click", () => {
 
+        const containers =
+            document.querySelectorAll(".left");
+
+
         const container =
-            document.querySelectorAll(".left")[index];
+            containers[index];
+
+
+        if (!container) return;
+
 
         if (!validateInputs(container)) {
 
@@ -240,16 +791,21 @@ document
 
         }
 
+
         calculateSemester(container);
 
+
         updateOverallTotal();
+
 
         const downloadButton =
             container.querySelector(".downloadBtn");
 
+
         if (downloadButton) {
 
-            downloadButton.style.display = "inline-block";
+            downloadButton.style.display =
+                "inline-block";
 
         }
 
@@ -258,9 +814,9 @@ document
 });
 
 
-// ================================
+// =====================================================
 // GRADE POINT
-// ================================
+// =====================================================
 
 function getGradePoint(marks) {
 
@@ -276,84 +832,189 @@ function getGradePoint(marks) {
 }
 
 
-// ================================
+// =====================================================
 // CALCULATE SEMESTER
-// ================================
+// =====================================================
 
 function calculateSemester(container) {
 
-    const rows = container.querySelectorAll(".sone");
+    const rows =
+        container.querySelectorAll(".sone");
+
 
     let totalMarks = 0;
     let creditSum = 0;
     let weightedGP = 0;
 
+
     rows.forEach(row => {
 
-        const inputs = row.querySelectorAll("input");
+        const inputs =
+            row.querySelectorAll("input");
 
-        const internal = Number(inputs[0].value) || 0;
-        const external = Number(inputs[1].value) || 0;
 
-        const marks = internal + external;
+        if (inputs.length < 2) return;
+
+
+        const internal =
+            Number(inputs[0].value) || 0;
+
+
+        const external =
+            Number(inputs[1].value) || 0;
+
+
+        const marks =
+            internal + external;
+
 
         totalMarks += marks;
 
-        const credit = Number(
-            row.querySelector("h2")
-            .textContent.match(/\((\d+)\)/)[1]
-        );
 
-        const gradePoint = getGradePoint(marks);
+        const title =
+            row.querySelector("h2");
+
+
+        if (!title) return;
+
+
+        const match =
+            title.textContent.match(/\(([\d.]+)\)/);
+
+
+        const credit =
+            match ? Number(match[1]) : 0;
+
+
+        const gradePoint =
+            getGradePoint(marks);
+
 
         creditSum += credit;
 
-        weightedGP += credit * gradePoint;
+
+        weightedGP +=
+            credit * gradePoint;
 
     });
 
-    const totalMax = rows.length * 100;
+
+    const totalMax =
+        rows.length * 100;
+
 
     const percentage =
-        ((totalMarks / totalMax) * 100).toFixed(2);
+        totalMax === 0
+            ? "0.00"
+            : ((totalMarks / totalMax) * 100)
+                .toFixed(2);
+
 
     const sgpa =
         creditSum === 0
-            ? "0"
-            : (weightedGP / creditSum).toFixed(2);
+            ? "0.00"
+            : (weightedGP / creditSum)
+                .toFixed(2);
+
 
     const creditBox =
         container.querySelectorAll(".credit h2");
 
-    creditBox[0].textContent =
-        `Total Credit: ${creditSum}`;
 
-    creditBox[1].textContent =
-        `Marks: ${totalMarks}/${totalMax}`;
+    if (creditBox.length >= 3) {
 
-    creditBox[2].textContent =
-        `Percentage: ${percentage}%`;
+        creditBox[0].textContent =
+            `Total Credit: ${creditSum}`;
 
-    container.querySelector(".calculate h2")
-        .textContent = `SGPA: ${sgpa}`;
+        creditBox[1].textContent =
+            `Marks: ${totalMarks}/${totalMax}`;
+
+        creditBox[2].textContent =
+            `Percentage: ${percentage}%`;
+
+    }
+
+
+    const calculate =
+        container.querySelector(".calculate h2");
+
+
+    if (calculate) {
+
+        calculate.textContent =
+            `SGPA: ${sgpa}`;
+
+    }
 
 }
 
 
-
-// ================================
+// =====================================================
 // VALIDATE INPUT
-// ================================
+// =====================================================
 
 function validateInputs(container) {
 
-    const inputs = container.querySelectorAll("input");
+    const inputs =
+        container.querySelectorAll("input");
+
 
     for (const input of inputs) {
 
         if (input.value === "") {
 
-            alert("Please enter all subject marks.");
+            alert(
+                "Please enter all subject marks."
+            );
+
+            input.focus();
+
+            return false;
+
+        }
+
+
+        const value =
+            Number(input.value);
+
+
+        if (Number.isNaN(value)) {
+
+            alert(
+                "Please enter valid marks."
+            );
+
+            input.focus();
+
+            return false;
+
+        }
+
+
+        if (
+            input.placeholder === "Internal" &&
+            (value < 0 || value > 30)
+        ) {
+
+            alert(
+                "Internal marks must be between 0 and 30."
+            );
+
+            input.focus();
+
+            return false;
+
+        }
+
+
+        if (
+            input.placeholder === "External" &&
+            (value < 0 || value > 70)
+        ) {
+
+            alert(
+                "External marks must be between 0 and 70."
+            );
 
             input.focus();
 
@@ -363,32 +1024,44 @@ function validateInputs(container) {
 
     }
 
+
     return true;
 
 }
 
 
-
-// ================================
-// UPDATE TOTAL
-// ================================
+// =====================================================
+// UPDATE OVERALL TOTAL
+// =====================================================
 
 function updateOverallTotal() {
 
-    const cards = document.querySelectorAll(".left");
+    const cards =
+        document.querySelectorAll(".left");
+
 
     let overallMarks = 0;
     let overallMax = 0;
 
+
     cards.forEach(card => {
 
-        const rows = card.querySelectorAll(".sone");
+        const rows =
+            card.querySelectorAll(".sone");
 
-        overallMax += rows.length * 100;
+
+        overallMax +=
+            rows.length * 100;
+
 
         rows.forEach(row => {
 
-            const inputs = row.querySelectorAll("input");
+            const inputs =
+                row.querySelectorAll("input");
+
+
+            if (inputs.length < 2) return;
+
 
             overallMarks +=
                 (Number(inputs[0].value) || 0) +
@@ -398,117 +1071,232 @@ function updateOverallTotal() {
 
     });
 
-    document.querySelector("#Total h2").textContent =
-        `Total: ${overallMarks}/${overallMax}`;
+
+    const total =
+        document.querySelector("#Total h2");
+
+
+    if (total) {
+
+        total.textContent =
+            `Total: ${overallMarks}/${overallMax}`;
+
+    }
 
 }
 
 
-
-// ================================
+// =====================================================
 // DOWNLOAD PDF
-// ================================
+// =====================================================
 
-document.querySelectorAll(".downloadBtn").forEach(btn => {
+document
+.querySelectorAll(".downloadBtn")
+.forEach(btn => {
 
     btn.addEventListener("click", () => {
 
-        const card = btn.closest(".left");
+        const card =
+            btn.closest(".left");
 
-        const sem =
-            card.querySelector(".circle").textContent;
 
-        downloadPDF(card, sem);
+        if (!card) return;
+
+
+        const circle =
+            card.querySelector(".circle");
+
+
+        const semNumber =
+            circle
+                ? circle.textContent
+                : "Semester";
+
+
+        downloadPDF(
+            card,
+            semNumber
+        );
 
     });
 
 });
 
 
+// =====================================================
+// PDF FUNCTION
+// =====================================================
 
-async function downloadPDF(container, semNumber) {
+async function downloadPDF(
+    container,
+    semNumber
+) {
 
-    await new Promise(resolve => setTimeout(resolve, 300));
+    if (
+        typeof html2canvas === "undefined" ||
+        typeof window.jspdf === "undefined"
+    ) {
 
-    const canvas = await html2canvas(container, {
+        alert(
+            "PDF libraries are not loaded."
+        );
 
-        scale: 2
+        return;
 
-    });
+    }
 
-    const image = canvas.toDataURL("image/png");
 
-    const { jsPDF } = window.jspdf;
+    await new Promise(resolve =>
+        setTimeout(resolve, 300)
+    );
 
-    const pdf = new jsPDF("p", "mm", "a4");
 
-    const width = pdf.internal.pageSize.getWidth();
+    const canvas =
+        await html2canvas(container, {
+            scale: 2
+        });
+
+
+    const image =
+        canvas.toDataURL("image/png");
+
+
+    const { jsPDF } =
+        window.jspdf;
+
+
+    const pdf =
+        new jsPDF(
+            "p",
+            "mm",
+            "a4"
+        );
+
+
+    const width =
+        pdf.internal.pageSize.getWidth();
+
 
     const height =
-        (canvas.height * width) / canvas.width;
+        (canvas.height * width) /
+        canvas.width;
 
-    pdf.addImage(image, "PNG", 0, 0, width, height);
+
+    pdf.addImage(
+        image,
+        "PNG",
+        0,
+        0,
+        width,
+        height
+    );
+
 
     pdf.setFontSize(12);
+
 
     pdf.text(
         "Generated by Ritesh Kumar",
         10,
-        height - 15
+        Math.min(height - 15, 280)
     );
 
-    pdf.textWithLink(
-        "LinkedIn Profile",
-        10,
-        height - 8,
-        {
-            url:
-            "https://www.linkedin.com/in/ritesh-kumar-3b621a358"
-        }
-    );
 
-    pdf.save(`AKTU_Sem_${semNumber}_Result.pdf`);
+    pdf.save(
+        `AKTU_${getSelectedBranch()}_Sem_${semNumber}_Result.pdf`
+    );
 
 }
 
 
-
-// ================================
+// =====================================================
 // RESET
-// ================================
+// =====================================================
 
-document
-.getElementById("reset")
-.addEventListener("click", resetAll);
+const resetButton =
+    document.getElementById("reset");
 
+
+if (resetButton) {
+
+    resetButton.addEventListener(
+        "click",
+        resetAll
+    );
+
+}
 
 
 function resetAll() {
 
-    document.querySelectorAll(".left").forEach(card => {
+    document
+    .querySelectorAll(".left")
+    .forEach(card => {
 
-        card.querySelectorAll("input")
-            .forEach(input => input.value = "");
+        card
+        .querySelectorAll("input")
+        .forEach(input => {
+
+            input.value = "";
+
+        });
+
 
         const creditBox =
-            card.querySelectorAll(".credit h2");
+            card.querySelectorAll(
+                ".credit h2"
+            );
 
-        creditBox[0].textContent = "Total Credit:";
-        creditBox[1].textContent = "Marks:";
-        creditBox[2].textContent = "Percentage:";
 
-        card.querySelector(".calculate h2")
-            .textContent = "SGPA: 0";
+        if (creditBox.length >= 3) {
+
+            creditBox[0].textContent =
+                "Total Credit:";
+
+            creditBox[1].textContent =
+                "Marks:";
+
+            creditBox[2].textContent =
+                "Percentage:";
+
+        }
+
+
+        const calculate =
+            card.querySelector(".calculate h2");
+
+
+        if (calculate) {
+
+            calculate.textContent =
+                "SGPA: 0";
+
+        }
+
 
         const download =
             card.querySelector(".downloadBtn");
 
-        download.style.display = "none";
+
+        if (download) {
+
+            download.style.display =
+                "none";
+
+        }
 
     });
 
-    document.querySelector("#Total h2").textContent =
-        "Total:";
+
+    const total =
+        document.querySelector("#Total h2");
+
+
+    if (total) {
+
+        total.textContent =
+            "Total:";
+
+    }
 
 }
-
