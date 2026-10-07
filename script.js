@@ -112,15 +112,15 @@ const CSE = {
         sem5: [
             S("Database Management System", 4),
             S("Design and Analysis of Algorithms", 4),
-            S("Web Technology", 4),
-            S("Computer Graphics", 3),
+            S(" Data analytics & Visualization ", 4),
             S("Department Elective-I", 3),
             S("Department Elective-II", 3),
+            S("Essence of Indian Traditional Knowledge", 0),
 
             S("DBMS Lab", 1),
             S("DAA Lab", 1),
-            S("Web Technology Lab", 1),
-            S("Computer Graphics Lab", 1),
+            S("DAV", 1),
+        
             S("Mini Project / Internship", 2)
         ],
 
@@ -128,14 +128,14 @@ const CSE = {
             S("Software Engineering", 4),
             S("Computer Networks", 4),
             S("Compiler Design", 4),
-            S("Department Elective-III", 3),
+            S("Department Elective-II", 3),
             S("Open Elective-I", 3),
-            S("Essence of Indian Traditional Knowledge", 0),
+            S("Constitution of India", 0),
 
             S("Software Engineering Lab", 1),
             S("Computer Networks Lab", 1),
             S("Compiler Design Lab", 1),
-            S("Mini Project", 2)
+    
         ]
 
     },
